@@ -1,0 +1,22 @@
+{
+  "timeZone": "Asia/Tokyo",
+  "dependencies": {
+    "enabledAdvancedServices": [
+      {
+        "userSymbol": "AnalyticsData",
+        "version": "v1beta",
+        "serviceId": "analyticsdata"
+      }
+    ],
+    "libraries": [
+      {
+        "userSymbol": "SlackApp",
+        "version": "22",
+        "libraryId": "1on93YOYfSmV92R5q59NpKmsyWIQD8qnoLYk-gkQBI92C58SPyA2x1-bq"
+      }
+    ]
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "oauthScopes": ["https://www.googleapis.com/auth/script.external_request", "https://www.googleapis.com/auth/analytics.readonly", "https://www.googleapis.com/auth/spreadsheets"],
+  "runtimeVersion": "V8"
+}
