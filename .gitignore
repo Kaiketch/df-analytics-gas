@@ -102,3 +102,11 @@ dist
 
 # TernJS port file
 .tern-port
+
+*.gs
+*.gscript
+*.gsheet
+
+.clasp.json
+
+src/env.ts
