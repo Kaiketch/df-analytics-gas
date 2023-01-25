@@ -8,26 +8,19 @@ function postDailyReportToSlack() {
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(Env.properties.GSS_SHEET_NAME);
     const lastRow = sheet?.getRange('A:A').getValues().filter(String).length ?? 0;
 
-    const preLastRowValues = sheet?.getRange(lastRow-1, 1, 1, sheet?.getLastColumn() ?? 0).getValues() ?? [];
-    const preRow = preLastRowValues[0];
-    const preMau = parseInt(preRow[11]);
-    const preFirstCount = parseInt(preRow[14]);
-    const preSubCount = parseInt(preRow[15]);
-
     const lastRowValues = sheet?.getRange(lastRow, 1, 1, sheet?.getLastColumn() ?? 0).getValues() ?? [];
     const row = lastRowValues[0];
-    const date = `${row[2]}年${row[3]}月${row[4]}日`;
-    const mau = parseInt(row[11]);
-    const firstCount = parseInt(row[14]);
-    const subCount = parseInt(row[15]);
+    const date = row[0].toLocaleDateString('ja-JP');
+    const mau = parseInt(row[8]);
+    const firstCount = parseInt(row[11]);
+    const subCount = parseInt(row[12]);
+    const lpCount = parseInt(row[13]);
 
-    const diffMau = mau - preMau;
-    const diffFirstCount = firstCount - preFirstCount;
-    const diffSubCount = subCount - preSubCount; 
-    const firstRate = Math.round(parseFloat(row[17]) * 100);
-    const subRate = Math.round(parseFloat(row[18]) * 100);
-    const mauRate = Math.round(parseFloat(row[19]) * 100);
+    const mauRate = Math.floor(parseFloat(row[14])*100);
+    const firstCountRate = Math.floor(parseFloat(row[15])*100);
+    const subCountRate = Math.floor(parseFloat(row[16])*100);
+    const lpCountRate = Math.floor(parseFloat(row[17])*100);
 
-    let message = `${date}\n初回：${firstCount} （${diffFirstCount}）（${firstRate}%）\n購読：${subCount} （${diffSubCount}）（${subRate}%）\nMAU：${mau} （${diffMau}）（${mauRate}%）`;
+    let message = `${date}\nLPビュー：${lpCount} （${lpCountRate}%） \n新規ユーザー：${firstCount} （${firstCountRate}%）\nMAU：${mau} （${mauRate}%）\n新規サブスク：${subCount} （${subCountRate}%）`;
     slackApp.chatPostMessage(channelId, message);
 }
