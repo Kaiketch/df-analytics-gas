@@ -67,7 +67,7 @@ function fetchGoogleAnalyticsDailyReport() {
         let purchase = parseInt(rows[i]["metricValues"][2]["value"]);
 
         if (date != preDate) {
-            ga4Data[++index] = [year + "/" + month + "/" + day, year + "/" + month, 0, 0, 0, 0, 0, 0];
+            ga4Data[++index] = [year + "/" + month + "/" + day, 0, 0, 0, 0, 0, 0, 0];
             preDate = date;
 
             for (let j = 0; j < rows2.length; j++) {
