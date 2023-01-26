@@ -21,6 +21,6 @@ function postDailyReportToSlack() {
     const subCountRate = Math.floor(parseFloat(row[16])*100);
     const lpCountRate = Math.floor(parseFloat(row[17])*100);
 
-    let message = `${date}\nLPビュー：${lpCount} （${lpCountRate}%） \n新規ユーザー：${firstCount} （${firstCountRate}%）\nMAU：${mau} （${mauRate}%）\n新規サブスク：${subCount} （${subCountRate}%）`;
+    let message = `${date}\nLP：${lpCount} （${lpCountRate}%） \n新規ユーザー：${firstCount} （${firstCountRate}%）\nMAU：${mau} （${mauRate}%）\n購入：${subCount} （${subCountRate}%）`;
     slackApp.chatPostMessage(channelId, message);
 }
