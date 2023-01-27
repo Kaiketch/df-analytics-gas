@@ -10,7 +10,7 @@ function fetchGoogleAnalyticsDailyReport() {
         "dimensions": [{ "name": "date" }, { "name": "year" }, { "name": "month" }, { "name": "day" }, { "name": "platform" }],
         "metrics": [{ "name": "newUsers" }, { "name": "active28DayUsers" }, { "name": "totalPurchasers" }],
         "dateRanges": { "startDate": "yesterday", "endDate": "yesterday" },
-//        "dateRanges": { "startDate": "2023-01-02", "endDate": "yesterday" },
+        //"dateRanges": { "startDate": "2022-01-01", "endDate": "yesterday" },
         "orderBys": [
             { "dimension": { "orderType": "ALPHANUMERIC", "dimensionName": "date" }, "desc": false },
             { "dimension": { "orderType": "ALPHANUMERIC", "dimensionName": "platform" }, "desc": false }
@@ -32,7 +32,7 @@ function fetchGoogleAnalyticsDailyReport() {
         "dimensions": [{ "name": "date" }, { "name": "platform" }],
         "metrics": [{ "name": "eventCount" },],
         "dateRanges": { "startDate": "yesterday", "endDate": "yesterday" },
-//        "dateRanges": { "startDate": "2023-01-02", "endDate": "yesterday" },
+        //"dateRanges": { "startDate": "2022-01-01", "endDate": "yesterday" },
         "dimensionFilter": {
             "filter": {
               "fieldName": "eventName",
@@ -67,7 +67,7 @@ function fetchGoogleAnalyticsDailyReport() {
         let purchase = parseInt(rows[i]["metricValues"][2]["value"]);
 
         if (date != preDate) {
-            ga4Data[++index] = [year + "/" + month + "/" + day, 0, 0, 0, 0, 0, 0, 0];
+            ga4Data[++index] = [year + "/" + month + "/" + day, year, month, day, 0, 0, 0, 0, 0, 0, 0];
             preDate = date;
 
             for (let j = 0; j < rows2.length; j++) {
@@ -76,16 +76,16 @@ function fetchGoogleAnalyticsDailyReport() {
                 let eventCount = parseInt(rows2[j]["metricValues"][0]["value"]);
     
                 if(date == date2 && platform2 == "web") {
-                    ga4Data[index].splice(7, 1, eventCount);
+                    ga4Data[index].splice(10, 1, eventCount);
                 }
             }
         }
 
         if (platform == "Android") {
-            ga4Data[index].splice(1, 3, mau, newUsers, purchase);
+            ga4Data[index].splice(4, 3, mau, newUsers, purchase);
         }
         else if (platform == "iOS"){
-            ga4Data[index].splice(4, 3, mau, newUsers, purchase);
+            ga4Data[index].splice(7, 3, mau, newUsers, purchase);
         }
     }
     sheet?.getRange(lastRow + 1, 1, ga4Data.length, ga4Data[0].length).setValues(ga4Data);
